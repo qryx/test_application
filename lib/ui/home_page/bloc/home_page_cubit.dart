@@ -14,17 +14,18 @@ class HomePageCubit extends Cubit<HomePageState> {
   final GetColorsUseCase _getColorsUseCase;
 
   Future<void> init() async {
-    if (state.color == null) {
-      final colors = await _getColorsUseCase.call();
-      emit(
-        state.copyWith(
-          color:
-              colors.isEmpty
-                  ? ColorModel(red: 0, green: 0, blue: 0, opacity: 0)
-                  : colors.last,
-        ),
-      );
-    }
+    final colors = await _getColorsUseCase.call();
+    final defaultColor = ColorModel(red: 0, green: 0, blue: 0, opacity: 0);
+    final colorToEmit = colors.isEmpty ? defaultColor : colors.last;
+
+    emit(
+      state.copyWith(
+        color:
+            colors.isEmpty && state.color != null
+                ? colorToEmit
+                : state.color ?? colorToEmit,
+      ),
+    );
   }
 
   Future<ColorModel> changeCurrentColor({ColorModel? changeColor}) async {

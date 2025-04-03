@@ -40,4 +40,9 @@ class ColorsRepository extends AbstractColorsRepository {
         color.green.toString() +
         color.blue.toString();
   }
+
+  @override
+  Future<void> deleteAllColor() async {
+    await colorsBox.clear();
+  }
 }

@@ -6,4 +6,5 @@ abstract class AbstractColorsRepository {
   Future<List<ColorModel>> getAllColors();
   Future<void> addColor(ColorModel color);
   Future<void> deleteColor(ColorModel color);
+  Future<void> deleteAllColor();
 }
