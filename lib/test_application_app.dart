@@ -2,12 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_it/get_it.dart';
 import 'package:test_application/theme/theme.dart';
-import 'package:test_application/ui/history_page/bloc/history_page_cubit.dart';
+import 'package:test_application/ui/history_page/cubit/history_page_cubit.dart';
 import 'package:test_application/ui/history_page/screen/history_page_screen.dart';
-import 'package:test_application/ui/home_page/bloc/home_page_cubit.dart';
+import 'package:test_application/ui/home_page/cubit/home_page_cubit.dart';
 import 'package:test_application/ui/home_page/screen/home_page_screen.dart';
 
+/// Main application widget
 class TestApplicationApp extends StatefulWidget {
+  /// Constructor for [TestApplicationApp]
   const TestApplicationApp({super.key});
 
   @override
@@ -49,7 +51,7 @@ class _TestApplicationAppState extends State<TestApplicationApp> {
             unselectedItemColor: theme.colorScheme.onSecondary,
             currentIndex: selectedIndex,
             onTap: onItemTapped,
-            items: [
+            items: const [
               BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
               BottomNavigationBarItem(
                 icon: Icon(Icons.history),

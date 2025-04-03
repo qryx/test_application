@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:test_application/ui/history_page/bloc/history_page_cubit.dart';
-import 'package:test_application/ui/history_page/bloc/history_page_state.dart';
-import 'package:test_application/ui/home_page/bloc/home_page_cubit.dart';
+import 'package:test_application/ui/history_page/cubit/history_page_cubit.dart';
+import 'package:test_application/ui/history_page/cubit/history_page_state.dart';
+import 'package:test_application/ui/home_page/cubit/home_page_cubit.dart';
 
+/// A screen that displays the history of colors.
 class HistoryPageScreen extends StatefulWidget {
+  /// Constructor for [HistoryPageScreen].
   const HistoryPageScreen({super.key});
 
   @override
@@ -21,6 +23,7 @@ class _HistoryPageScreenState extends State<HistoryPageScreen> {
   @override
   Widget build(BuildContext context) {
     final textTheme = Theme.of(context).textTheme;
+
     return BlocBuilder<HistoryPageCubit, HistoryPageState>(
       builder: (context, state) {
         final cubit = context.read<HistoryPageCubit>();
@@ -43,7 +46,7 @@ class _HistoryPageScreenState extends State<HistoryPageScreen> {
                       top: MediaQuery.of(context).size.width * 0.1,
                     ),
                     child: GestureDetector(
-                      onTap: () => cubit.deleteAllColors(),
+                      onTap: cubit.deleteAllColors,
                       child: Text(
                         'Clear All History',
                         style: textTheme.headlineMedium,
@@ -64,13 +67,14 @@ class _HistoryPageScreenState extends State<HistoryPageScreen> {
                             context.read<HomePageCubit>().changeCurrentColor(
                               changeColor: color,
                             );
-                            double brightness =
+                            final double brightness =
                                 (0.299 * color.red) +
                                 (0.587 * color.green) +
                                 (0.114 * color.blue);
                             final snackBar = SnackBar(
                               content: Text(
-                                'Color changed: (${color.red}, ${color.green}, ${color.blue})',
+                                'Color changed: '
+                                '(${color.red}, ${color.green}, ${color.blue})',
                                 style: textTheme.headlineMedium?.copyWith(
                                   color:
                                       brightness > 128
@@ -100,7 +104,7 @@ class _HistoryPageScreenState extends State<HistoryPageScreen> {
                             width: double.infinity,
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(10),
-                              border: Border.all(color: Colors.black),
+                              border: Border.all(),
                               color: Color.fromRGBO(
                                 color.red,
                                 color.green,
